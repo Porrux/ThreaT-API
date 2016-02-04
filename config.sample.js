@@ -3,9 +3,9 @@ var config.db = {};
 
 // Database
 config.db.port = 5984;
-config.db.host = 'pakilow.eu';
+config.db.host = 'localhost';
 config.db.user = 'root';
-config.db.password = 'root';
+config.db.password = 'test';
 config.db.database = 'database';
 
 

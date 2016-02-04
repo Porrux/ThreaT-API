@@ -1,6 +1,7 @@
 var express			= require('express'),
 	bodyParser		= require('body-parser'),
 	config 			= require('./config'),
+	eventRoutes		= require('./routes/event'),
 	app 			= express();
 
 //remove powered by and etag
@@ -11,6 +12,9 @@ app.disable('etag');
 app.use(bodyParser.urlencoded({extended: false}))	
    .use(bodyParser.json());
 
+//basic routing
+app.use('/api/event/', eventRoutes);
+
 //catch all other request
 app.use(function(req, res, next) {
     res.setHeader('Content-Type', 'text/plain');
@@ -18,7 +22,7 @@ app.use(function(req, res, next) {
 });
 
 //launch server
-var server = app.listen(config.server.port, function () {
+var server = app.listen(config.port, function () {
   var port = server.address().port;
   console.log('API rocking on port %s', port);
 });

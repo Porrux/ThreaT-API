@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Porrux/ThreaT-API#readme",
   "dependencies": {
     "body-parser": "^1.14.2",
+    "couchdb": "^0.3.8",
     "express": "^4.13.4"
   }
 }

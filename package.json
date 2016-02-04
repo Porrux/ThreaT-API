@@ -1,0 +1,23 @@
+{
+  "name": "threat-api",
+  "version": "1.0.0",
+  "description": "ThreaT API",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Porrux/ThreaT-API.git"
+  },
+  "author": "Awesome Team and a bad guy Thibault",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Porrux/ThreaT-API/issues"
+  },
+  "homepage": "https://github.com/Porrux/ThreaT-API#readme",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.4"
+  }
+}

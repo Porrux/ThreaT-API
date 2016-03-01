@@ -1,0 +1,168 @@
+{
+  "server": "",
+  "operations": [
+    {
+      "method": "get",
+      "path": "/api/event",
+      "description": "Get all events",
+      "parameters": []
+    },
+    {
+      "method": "post",
+      "path": "/api/event",
+      "description": "Add an event",
+      "parameters": [
+        {
+          "key": "body",
+          "value": {
+            "uuid": "",
+            "country": "",
+            "location": [
+              {
+                "x": 0,
+                "y": 0
+              }
+            ],
+            "timestamp": "",
+            "level": 0,
+            "type": "",
+            "rating": 0,
+            "effectArea": 0,
+            "title": "",
+            "description": "",
+            "picture": [
+              {
+                "url": "",
+                "title": ""
+              }
+            ],
+            "news": [
+              {
+                "url": "",
+                "title": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "method": "get",
+      "path": "/api/event/{id}",
+      "description": "Get an event",
+      "parameters": [
+        {
+          "key": "id",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "method": "put",
+      "path": "/api/event/{id}",
+      "description": "Update an event",
+      "parameters": [
+        {
+          "key": "id",
+          "value": 1
+        },
+        {
+          "key": "body",
+          "value": {
+            "uuid": "",
+            "country": "",
+            "location": [
+              {
+                "x": 0,
+                "y": 0
+              }
+            ],
+            "timestamp": "",
+            "level": 0,
+            "type": "",
+            "rating": 0,
+            "effectArea": 0,
+            "title": "",
+            "description": "",
+            "picture": [
+              {
+                "url": "",
+                "title": ""
+              }
+            ],
+            "news": [
+              {
+                "url": "",
+                "title": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "method": "post",
+      "path": "/api/event/{id}/vote",
+      "description": "Vote for an event",
+      "parameters": [
+        {
+          "key": "id",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "method": "post",
+      "path": "/api/event/{id}/picture",
+      "description": "Add a picture to an event",
+      "parameters": [
+        {
+          "key": "id",
+          "value": 1
+        },
+        {
+          "key": "body",
+          "value": {
+            "url": "",
+            "title": ""
+          }
+        }
+      ]
+    },
+    {
+      "method": "post",
+      "path": "/api/event/{id}/news",
+      "description": "Add a news to an event",
+      "parameters": [
+        {
+          "key": "id",
+          "value": 1
+        },
+        {
+          "key": "body",
+          "value": {
+            "url": "",
+            "title": ""
+          }
+        }
+      ]
+    },
+    {
+      "method": "delete",
+      "path": "/api/event/{id}",
+      "description": "Delete an event",
+      "parameters": [
+        {
+          "key": "id",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "method": "get",
+      "path": "/api/type",
+      "description": "Get all types",
+      "parameters": []
+    }
+  ]
+}

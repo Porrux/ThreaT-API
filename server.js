@@ -15,6 +15,9 @@ app.use(bodyParser.urlencoded({extended: false}))
 //basic routing
 app.use('/api/event/', eventRoutes);
 
+//rat
+app.use('/', express.static(__dirname + '/rat'));
+
 //catch all other request
 app.use(function(req, res, next) {
     res.setHeader('Content-Type', 'text/plain');

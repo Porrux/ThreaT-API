@@ -1,13 +1,9 @@
 var config = {};
-var config.db = {};
+
+config.db = {};
 
 // Database
-config.db.port = 5984;
-config.db.host = 'localhost';
-config.db.user = 'root';
-config.db.password = 'test';
-config.db.database = 'database';
-
+config.db.url = 'http://root:root@pakilow.eu:5984/database';
 
 // Global configuration
 config.port = 1337;

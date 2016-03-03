@@ -4,6 +4,8 @@ WORKDIR /app
 ADD package.json /app/
 ADD . /app
 
+RUN npm install
+
 CMD []
 ENTRYPOINT ["npm", "start"]
 

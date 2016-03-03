@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/Porrux/ThreaT-API#readme",
   "dependencies": {
+    "async": "^1.5.2",
     "body-parser": "^1.14.2",
     "express": "^4.13.4",
-    "nano": "^6.2.0"
+    "nano": "^6.2.0",
+    "node-uuid": "^1.4.7"
   }
 }

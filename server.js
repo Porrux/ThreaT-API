@@ -2,6 +2,7 @@ var express			= require('express'),
 	bodyParser		= require('body-parser'),
 	config 			= require('./config'),
 	eventRoutes		= require('./routes/event'),
+    typeRoutes		= require('./routes/type'),
 	app 			= express();
 
 //remove powered by and etag
@@ -14,6 +15,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 //basic routing
 app.use('/api/event/', eventRoutes);
+app.use('/api/type/', typeRoutes);
 
 //rat
 app.use('/', express.static(__dirname + '/rat'));

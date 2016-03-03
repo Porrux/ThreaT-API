@@ -2,7 +2,7 @@
 const Operations = React.createClass({
     getInitialState() {
         return {
-            apiData: {operations:[]}
+            apiData: {operations: []}
         };
     },
     componentWillMount() {
@@ -16,7 +16,7 @@ const Operations = React.createClass({
         return (
             <ul className="operations">
                 {this.state.apiData.operations.map((data, i) => {
-                    if(data){
+                    if (data) {
                         return (<Operation key={i} data={data} server={this.state.apiData.server}/>);
                     }
                 })}
@@ -35,10 +35,12 @@ const Operation = React.createClass({
         this.setState({displayContent: !this.state.displayContent});
     },
     render() {
-        return(
+        return (
             <li className={this.props.data.method + " operations"}>
-                <HeaderOperation httpMethod={this.props.data.method} path={this.props.data.path} description={this.props.data.description} onClick={this.onHeaderClick}/>
-                <ContentOperation display={this.state.displayContent} data={this.props.data} server={this.props.server}/>
+                <HeaderOperation httpMethod={this.props.data.method} path={this.props.data.path}
+                                 description={this.props.data.description} onClick={this.onHeaderClick}/>
+                <ContentOperation display={this.state.displayContent} data={this.props.data}
+                                  server={this.props.server}/>
             </li>
         );
     }
@@ -75,7 +77,7 @@ const ContentOperation = React.createClass({
 
         let params = this.state.params;
 
-        for(var i = 0; i < params.length; ++i) {
+        for (var i = 0; i < params.length; ++i) {
             if (params[i].key == key) {
                 params[i].value = value;
                 break;
@@ -93,7 +95,15 @@ const ContentOperation = React.createClass({
 
         this.setState({request: req});
 
-        const content = this.props.data.method === 'post' ? JSON.stringify(ajaxData.data) : ajaxData.data;
+        let content = ajaxData.data;
+
+        if (this.props.data.method === 'post' && ajaxData.data) {
+            if (typeof ajaxData.data != 'object') {
+                ajaxData.data = JSON.parse(ajaxData.data);
+            }
+
+            content = JSON.stringify(ajaxData.data);
+        }
 
         $.ajax({
             url: req.url,
@@ -128,26 +138,27 @@ const Request = React.createClass({
 
         let partial = null;
 
-        if(this.props.params.length > 0) {
+        if (this.props.params.length > 0) {
             partial =
                 <div className="request">
-                <h4>Parameters</h4>
-                <table>
-                    <thead>
+                    <h4>Parameters</h4>
+                    <table>
+                        <thead>
                         <tr>
                             <th style={paramsWidth}>Parameter</th>
                             <th>Value</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         {this.props.params.map((param, i) => {
-                            if(param){
-                                return (<Parameter key={i} name={param.key} default={param.value} onChange={this.props.onChange}/>);
+                            if (param) {
+                                return (<Parameter key={i} name={param.key} default={param.value}
+                                                   onChange={this.props.onChange}/>);
                             }
                         })}
-                    </tbody>
-                </table>
-            </div>;
+                        </tbody>
+                    </table>
+                </div>;
         }
 
         return (partial);
@@ -162,18 +173,18 @@ const Parameter = React.createClass({
         };
     },
     componentWillMount() {
-        if(this.props.default && typeof this.props.default === 'object'){
+        if (this.props.default && typeof this.props.default === 'object') {
             this.setState({
                 value: JSON.stringify(this.props.default, undefined, 4)
             });
-        }else{
+        } else {
             this.setState({
                 value: this.props.default
             });
         }
     },
     onInputChange(e){
-        if(this.props.onChange){
+        if (this.props.onChange) {
             this.props.onChange(this.props.name, e.target.value);
         }
         this.setState({
@@ -186,9 +197,9 @@ const Parameter = React.createClass({
     render(){
         let input;
 
-        if(this.props.name === 'body'){
+        if (this.props.name === 'body') {
             input = <AceEditor id={this.state.id} code={this.state.value} onChange={this.onEditorChange}/>;
-        }else{
+        } else {
             input = <input id={this.state.id} type="text" value={this.state.value} onChange={this.onInputChange}/>;
         }
         return (
@@ -217,7 +228,9 @@ const AceEditor = React.createClass({
         editor.setShowPrintMargin(false);
         editor.setOptions({minLines: 5});
         editor.setOptions({maxLines: 50});
-        editor.getSession().on("change", () => {this.props.onChange(editor.getSession().getValue())});
+        editor.getSession().on("change", () => {
+            this.props.onChange(editor.getSession().getValue())
+        });
     },
     onChange() {
         if (this.props.onChange && !this.silent) {
@@ -240,21 +253,21 @@ const Sandbox = React.createClass({
     send(e) {
         e.preventDefault();
 
-        if(this.props.onSubmit){
+        if (this.props.onSubmit) {
             this.props.onSubmit();
         }
     },
     clear(e) {
         e.preventDefault();
 
-        if(this.props.onClear){
+        if (this.props.onClear) {
             this.props.onClear();
         }
     },
     render() {
         let partial = null;
 
-        if(this.props.hasResponse){
+        if (this.props.hasResponse) {
             partial = <input type="button" value="Clear response" onClick={this.clear}/>;
         }
 
@@ -272,30 +285,31 @@ const Result = React.createClass({
 
         let partial = null;
 
-        if(Object.keys(this.props.response).length > 0) {
+        if (Object.keys(this.props.response).length > 0) {
             partial =
-            <div className="response">
-                <Area title="Request URL">
-                    <div className="request_url">
-                        <pre>{this.props.request.url}</pre>
-                    </div>
-                </Area>
-                <Area title="Response Code">
-                    <div className="response_code">
-                        <pre>{this.props.response.status}</pre>
-                    </div>
-                </Area>
-                <Area title="Response Headers">
-                    <div className="response_headers">
-                        <pre className="json">{this.props.response.getAllResponseHeaders()}</pre>
-                    </div>
-                </Area>
-                <Area title="Response Body">
-                    <div className="response_json">
-                        <pre className="json">{JSON.stringify(JSON.parse(this.props.response.responseText), null, 4)}</pre>
-                    </div>
-                </Area>
-            </div>;
+                <div className="response">
+                    <Area title="Request URL">
+                        <div className="request_url">
+                            <pre>{this.props.request.url}</pre>
+                        </div>
+                    </Area>
+                    <Area title="Response Code">
+                        <div className="response_code">
+                            <pre>{this.props.response.status}</pre>
+                        </div>
+                    </Area>
+                    <Area title="Response Headers">
+                        <div className="response_headers">
+                            <pre className="json">{this.props.response.getAllResponseHeaders()}</pre>
+                        </div>
+                    </Area>
+                    <Area title="Response Body">
+                        <div className="response_json">
+                            <pre
+                                className="json">{JSON.stringify(JSON.parse(this.props.response.responseText), null, 4)}</pre>
+                        </div>
+                    </Area>
+                </div>;
         }
 
         return partial;
@@ -314,6 +328,6 @@ const Area = React.createClass({
 });
 
 React.render(
-	<Operations/>,
-	document.getElementById('container')
+    <Operations/>,
+    document.getElementById('container')
 );

@@ -20,7 +20,7 @@ var self = module.exports = {
             async.eachSeries(data.rows, function (prime, cb) {
 
                 if (prime.doc._id === 'types') {
-                    return cb();
+                    return  cb();
                 }
 
                 delete prime.doc._id;

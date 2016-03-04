@@ -107,6 +107,12 @@
         {
           "key": "id",
           "value": "3aa218eef46c85c5c9c627ea2901371c"
+        },
+        {
+          "key": "body",
+          "value": {
+            "vote": 1
+          }
         }
       ]
     },

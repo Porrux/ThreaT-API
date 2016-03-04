@@ -70,7 +70,12 @@ router.post('/:id/vote', function (req, res) {
         if (!fetchData.rating) {
             fetchData.rating = 0;
         }
-        ++fetchData.rating;
+
+        if(!req.body.vote){
+            return res.status(400).send('Vote not found');
+        }
+
+        fetchData.rating += req.body.vote;
 
         return events.update(fetchData, function (err, body) {
             if (err) {

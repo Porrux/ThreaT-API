@@ -5,7 +5,16 @@
       "method": "get",
       "path": "/api/event",
       "description": "Get all events",
-      "parameters": []
+      "parameters": [
+        {
+          "key": "topleft",
+          "value": "0.0,10.0"
+        },
+        {
+          "key": "bottomright",
+          "value": "10.0,0.0"
+        }
+      ]
     },
     {
       "method": "post",

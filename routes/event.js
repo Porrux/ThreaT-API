@@ -1,5 +1,6 @@
 var express = require('express'),
     events = require('../services/events'),
+    async = require('async'),
     router = express.Router();
 
 ///
@@ -10,6 +11,36 @@ router.get('/', function (req, res) {
     return events.all(function (err, data) {
         if (err) {
             return res.status(500).send(err);
+        }
+
+        if (req.query.topleft && req.query.bottomright) {
+            var temp = req.query.topleft.split(',');
+            var topLeft = {"x": temp[0], "y": temp[1]};
+
+            temp = req.query.bottomright.split(',');
+            var bottomRight = {"x": temp[0], "y": temp[1]};
+
+            var boundingBox = [];
+
+            return async.eachSeries(data, function (prime, cb) {
+
+                if(!prime.location || !prime.location.x || !prime.location.x){
+                    return cb();
+                }
+
+                if (prime.location.x <= bottomRight.x && prime.location.x >= topLeft.x){
+                    if(prime.location.y >= bottomRight.y && prime.location.y <= topLeft.y) {
+                        boundingBox.push(prime);
+                    }
+                }
+
+                return cb();
+            }, function (errEach) {
+                if (errEach) {
+                    return res.status(500).send(errEach);
+                }
+                return res.status(200).send(boundingBox);
+            });
         }
         return res.status(200).send(data);
     });
@@ -71,7 +102,7 @@ router.post('/:id/vote', function (req, res) {
             fetchData.rating = 0;
         }
 
-        if(!req.body.vote){
+        if (!req.body.vote) {
             return res.status(400).send('Vote not found');
         }
 

@@ -1,5 +1,5 @@
 var db = require('./db'),
-    uuid = require('uuid');
+    uuid = require('node-uuid');
 
 var typeId = 'types';
 

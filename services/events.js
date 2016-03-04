@@ -18,6 +18,11 @@ var self = module.exports = {
             var rows = [];
 
             async.eachSeries(data.rows, function (prime, cb) {
+
+                if (prime.doc._id === 'types') {
+                    return cb();
+                }
+
                 delete prime.doc._id;
                 delete prime.doc._rev;
                 rows.push(prime.doc);

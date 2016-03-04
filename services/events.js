@@ -20,7 +20,7 @@ var self = module.exports = {
             async.eachSeries(data.rows, function (prime, cb) {
 
                 if (prime.doc._id === 'types') {
-                    return  cb();
+                    return cb();
                 }
 
                 delete prime.doc._id;
@@ -62,6 +62,10 @@ var self = module.exports = {
     add: function (event, callback) {
         if (!callback) {
             callback = nocallback;
+        }
+
+        if (!event.timestamp) {
+            event.timestamp = Math.floor(Date.now() / 1000);
         }
 
         db.insert(event, event.uuid, function (err, body) {
